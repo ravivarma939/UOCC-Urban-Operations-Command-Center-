@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Urban Operations - Smart City Command & Control Center
 
 A comprehensive full-stack smart city management system with microservices architecture, featuring real-time incident tracking, sensor monitoring, CCTV surveillance, AI-powered analytics, and predictive capabilities.
@@ -635,3 +636,7 @@ This project is proprietary software. All rights reserved.
 **Version**: 1.0.0
 
 
+=======
+# UOCC-Urban-Operations-Command-Center-
+full project with frontend (reactjs) ,backend (java) , python integrated 
+>>>>>>> 35a0af24199f6580a4119112c7ebba511a0b65d3
