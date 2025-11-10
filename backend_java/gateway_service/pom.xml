@@ -5,63 +5,57 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- ✅ Inherit from parent traffic_service -->
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
-        <relativePath/>
+        <groupId>com.urdanopreations</groupId>
+        <artifactId>traffic_service</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.traffic_service</groupId>
     <artifactId>gateway_service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gateway_service</name>
-    <description>Spring Cloud Gateway with JWT Validation</description>
+    <description>Spring Cloud Gateway for Urban Operations Command Center (UOCC)</description>
 
-    <properties>
-        <java.version>21</java.version>
-        <spring-cloud.version>2025.0.0</spring-cloud.version>
-    </properties>
-
+    <!-- ✅ Dependencies -->
     <dependencies>
-        <!-- ✅ Core Spring Cloud Gateway Reactive -->
+        <!-- Spring Cloud Gateway (Reactive) -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <!-- ✅ Reactive WebFlux Support -->
+        <!-- Reactive WebFlux (needed for Gateway) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
-        <!-- ✅ Reactive Security -->
+        <!-- Security for JWT filter validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- ✅ JWT -->
+        <!-- JWT (already versioned in parent via property) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Lombok (Optional) -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -76,30 +70,34 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+    <!-- ✅ Build Configuration -->
     <build>
-        <plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-    <executions>
-        <execution>
-            <goals>
-                <goal>repackage</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
+        <plugins>
+            <!-- Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <release>${java.version}</release>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
 
+            <!-- Spring Boot Plugin for packaging -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
+
 </project>
