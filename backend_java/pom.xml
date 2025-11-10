@@ -5,12 +5,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- ==================== PROJECT INFO ==================== -->
     <groupId>com.urdanopreations</groupId>
     <artifactId>traffic_service</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>Traffic Service Parent</name>
-    <description>Parent POM for all microservices under Traffic System</description>
+    <description>Parent POM for all microservices under Urban Operations Command Center (UOCC)</description>
 
     <!-- ==================== MODULES ==================== -->
     <modules>
@@ -29,13 +30,18 @@
         <spring-cloud.version>2025.0.0</spring-cloud.version>
         <jjwt.version>0.11.5</jjwt.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+         <lombok.version>1.18.32</lombok.version>
     </properties>
 
     <!-- ==================== DEPENDENCY MANAGEMENT ==================== -->
     <dependencyManagement>
         <dependencies>
-
-            <!-- Spring Boot BOM -->
+                 <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+            <!-- ✅ Spring Boot BOM -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -44,7 +50,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Spring Cloud BOM -->
+            <!-- ✅ Spring Cloud BOM -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -53,15 +59,32 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- ✅ JWT Version Centralization -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
-    <!-- ==================== BUILD CONFIG ==================== -->
+    <!-- ==================== PLUGIN MANAGEMENT ==================== -->
     <build>
         <pluginManagement>
             <plugins>
 
-                <!-- ✅ Spring Boot Plugin for Packaging JARs -->
+                <!-- ✅ Spring Boot Plugin for building JARs -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -87,6 +110,21 @@
                         </compilerArgs>
                     </configuration>
                 </plugin>
+             <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>${maven.compiler.plugin.version}</version>
+    <configuration>
+        <release>${java.version}</release>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </path>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
 
             </plugins>
         </pluginManagement>
